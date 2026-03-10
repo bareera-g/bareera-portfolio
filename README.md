@@ -1,90 +1,128 @@
-# Bareera Gulraiz — Software Engineering Portfolio
+# Bareera Gulraiz — Portfolio
 
-🔗 **Live site:** https://bareeragulraiz.com  
-📍 **CS & Informatics @ UC Irvine**  
-💻 **Software Engineering Intern @ EdgeLab**
+A scroll-driven "Nine Homes" narrative portfolio with a 3D moving-box hero intro, built with React, TypeScript, Vite, React Three Fiber, Tailwind CSS, and Framer Motion.
 
----
+## Quick Start
 
-## Overview
+```bash
+npm install
+npm run dev
+```
 
-This repository contains the source code for my personal software engineering portfolio.  
-The site highlights selected projects, technical experience, and skills, with a focus on:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-- Full-stack application development  
-- Data pipelines, automation, and analytics  
-- Scalable, maintainable system design  
-- Clear, user-centered interfaces  
+## Production Build
 
-The portfolio is designed to reflect how I build in real environments: clean architecture, measurable impact, and thoughtful engineering decisions.
+```bash
+npm run build
+npm run preview
+```
 
----
+## Project Structure
 
-## Featured Projects
+```
+src/
+├── App.tsx                     # Root: lazy-loads Hero3D → MainContent
+├── main.tsx                    # Entry point
+├── styles/global.css           # Tailwind + paper texture + blueprint grid
+├── data/projects.ts            # Project data array (edit here)
+├── hooks/useReducedMotion.ts
+├── three/                      # 3D hero components (React Three Fiber)
+│   ├── BoxScene.tsx            # Lights, camera rig, scene composition
+│   ├── MovingBox.tsx           # Procedural box: walls, flaps, tape
+│   └── MiniRoom.tsx            # Tiny room interior (desk, chair, plant)
+├── components/
+│   ├── Nav.tsx                 # Sticky nav + scroll progress bar
+│   ├── RoomScene.tsx           # 2D SVG room renderer (4 room types)
+│   ├── ProjectCard.tsx         # Project grid cards
+│   └── ProjectModal.tsx        # Accessible case-study modal
+└── sections/
+    ├── Hero3D.tsx              # 3D Canvas + scroll driver + overlay text
+    ├── MainContent.tsx         # Wrapper for all 2D sections
+    ├── Hero.tsx                # (Legacy 2D hero, kept for reference)
+    ├── HouseJourney.tsx        # Scroll-driven rooms → project morph
+    ├── Projects.tsx            # Full project grid
+    ├── About.tsx               # Philosophy / 3 principles
+    └── Contact.tsx             # Email, LinkedIn, GitHub
+```
 
-### 🔍 Search Engine Data Pipeline
-**Python • Crawling • ETL • Indexing**
+## 3D Hero — How It Works
 
-- Built an end-to-end system to crawl, process, and index web data  
-- Implemented ranking and filtering logic with performance constraints  
-- Improved reliability through batching, structured error handling, and profiling  
+### Scroll → Animation Mapping
 
----
+The hero occupies **400vh** of scroll space. A `position: fixed` Canvas renders the 3D scene while Framer Motion's `useScroll` maps scroll position to a `progressRef` (0→1):
 
-### 🏋️ GymPal — Full-Stack Fitness Platform
-**Flask • Angular/Ionic • PostgreSQL • Gemini API**
+| Scroll % | Animation Phase |
+|----------|----------------|
+| 0–4%     | Idle: subtle box float |
+| 4–28%    | Tape peels back |
+| 22–62%   | Four flaps hinge open |
+| 50–92%   | Camera dollies into the box |
+| 84–100%  | 3D canvas fades out → 2D sections appear |
 
-- Designed backend services and relational schemas for analytics and time-series data  
-- Built monitoring pipelines to analyze user behavior and application performance  
-- Developed interactive dashboards that increased user engagement by **35%**
+Overlay text fades in/out at key moments:
+- *"I moved nine times before I was nine."* — 4–52%
+- *"Now I design systems that help people feel at home."* — 58–96%
 
----
+### Camera Rig
 
-### 🎧 Spotify Browser
-**Angular • REST APIs • OAuth**
+Two-phase interpolation in `BoxScene.tsx` → `CameraRig`:
+- Phase 1 (0–50%): Slow approach from `[0, 1.8, 3.5]` to `[0, 1.35, 2.0]`
+- Phase 2 (50–92%): Dolly into box from `[0, 1.35, 2.0]` to `[0, 0.55, 0.12]`
 
-- Implemented secure OAuth-based API integrations  
-- Built robust error handling and state management  
-- Delivered intuitive visualizations for exploring music trends and usage data  
+Camera position uses 10% per-frame damping for smooth scroll-following.
 
----
+### Tuning Colors & Lighting
 
-## Tech Stack
+In `BoxScene.tsx`:
+- `<color args={['#F4EFE6']} />` — scene background (match page)
+- Key light: `position={[3, 5, 4]}`, warm `#FFFAF0`
+- Fill light: `position={[-2, 3, -1]}`, cool `#E0E5F0`
+- Ambient: `0.55` intensity
 
-**Frontend**
-- Next.js (App Router)
-- TypeScript
-- React
-- Tailwind CSS
-- Framer Motion
+In `MovingBox.tsx`:
+- `CARDBOARD = '#C4A882'` — front/back/top/bottom
+- `CARDBOARD_SIDE = '#B89872'` — left/right (subtle depth)
+- `TAPE_COLOR = '#D9CBA8'`
 
-**Backend / Data**
-- Python
-- Flask
-- PostgreSQL
-- ETL pipelines
-- REST APIs
-- OAuth
+## Where to Edit
 
-**Tools**
-- Git & GitHub
-- Vercel (deployment)
-- NumPy
-- OpenCV
+| What | File |
+|------|------|
+| Projects | `src/data/projects.ts` |
+| Hero copy | `src/sections/Hero3D.tsx` (overlay text) |
+| Box colors | `src/three/MovingBox.tsx` (top constants) |
+| Room furniture | `src/three/MiniRoom.tsx` |
+| Lighting | `src/three/BoxScene.tsx` |
+| Camera path | `src/three/BoxScene.tsx` → `CameraRig` |
+| 2D rooms | `src/components/RoomScene.tsx` |
+| Design tokens | `tailwind.config.js` |
+| About text | `src/sections/About.tsx` |
+| Contact links | `src/sections/Contact.tsx` |
 
----
+## Reduced Motion
 
-## Design & Architecture Notes
+When `prefers-reduced-motion: reduce` is active:
+- The 3D Canvas is **not rendered at all**
+- A static fallback shows the thesis text on a blueprint grid
+- All scroll animations in the 2D sections are disabled
+- No parallax, no fade transitions
 
-- Modular, component-driven structure
-- Dynamic routing for project case studies
-- Production-ready deployment with Vercel
-- DNS + custom domain configuration
-- Subtle animations focused on clarity, not flash
+## Accessibility
 
----
+- Skip-to-content link (keyboard visible)
+- "Skip intro →" button bypasses 3D hero
+- "Skip story → Projects" in nav for recruiters
+- Modal: focus-trapped, ESC to close, `aria-modal`
+- Proper heading hierarchy (`h1` → `h2` → `h3`)
+- Focus-visible outlines (terracotta)
 
-## Deployment
+## Performance
 
-The site is deployed on **Vercel** with a custom domain:
-
+- **Code splitting**: Three.js loads as a separate chunk (~288KB gz), lazy-loaded
+- **Main bundle**: ~53KB gz (renders immediately without waiting for 3D)
+- **3D scene**: ~30 draw calls, no textures, no postprocessing
+- **Procedural geometry**: Box, flaps, tape, room furniture — all built from primitives
+- **Camera damping**: 10% per-frame lerp avoids jank on fast scroll
+- **Shadow map**: 1024×1024, single directional light
+- **DPR capped** at 1.5 to prevent GPU strain on high-DPI displays

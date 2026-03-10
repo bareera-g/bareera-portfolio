@@ -1,0 +1,72 @@
+/* ── SignatureDraw ──────────────────────────────────────────────── */
+
+.signature-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.signature-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* ── Stroke draw animation ─────────────────────────────────────── */
+
+.sig-stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sig-stroke.is-drawing {
+  animation:
+    sig-draw var(--draw-duration) var(--draw-delay)
+    cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes sig-draw {
+  from {
+    stroke-dashoffset: var(--path-length);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Fill reveal after stroke completes ────────────────────────── */
+
+.sig-fill {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.sig-fill.is-visible {
+  opacity: 1;
+}
+
+/* ── Reduced-motion: show finished state immediately ───────────── */
+
+.sig-stroke.no-motion {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sig-stroke {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+
+  .sig-fill {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
