@@ -17,7 +17,8 @@ function Hero3DFallback() {
 }
 
 export default function App() {
-  const [splashDone, setSplashDone] = useState(false)
+  const introSeen = sessionStorage.getItem('portfolio-intro-seen') === '1'
+  const [splashDone, setSplashDone] = useState(introSeen)
 
   return (
     <>
