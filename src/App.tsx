@@ -35,7 +35,9 @@ export default function App() {
           <Suspense fallback={<Hero3DFallback />}>
             <Hero3D />
           </Suspense>
-          <MainContent />
+          <div className="relative z-40">
+            <MainContent />
+          </div>
         </main>
       </div>
     </>

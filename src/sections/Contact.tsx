@@ -34,7 +34,7 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 sm:py-28 px-5 sm:px-6 border-t border-charcoal/[0.05]">
+    <section id="contact" className="relative z-10 py-20 sm:py-28 px-5 sm:px-6 border-t border-charcoal/[0.05]">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,7 +63,7 @@ export default function Contact() {
               href={link.href}
               target={link.label !== 'Email' ? '_blank' : undefined}
               rel={link.label !== 'Email' ? 'noreferrer' : undefined}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg border border-charcoal/[0.1] text-charcoal-solid/60 hover:border-charcoal/[0.22] hover:text-charcoal-solid transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg border border-charcoal/[0.1] text-charcoal-solid/60 hover:border-charcoal/[0.22] hover:text-charcoal-solid transition-colors cursor-pointer"
             >
               <span className="opacity-50">{link.icon}</span>
               {link.label}

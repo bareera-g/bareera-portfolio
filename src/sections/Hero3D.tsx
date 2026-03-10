@@ -57,6 +57,7 @@ export default function Hero3D() {
         style={{
           opacity: canvasOpacity,
           pointerEvents: done ? 'none' : 'auto',
+          visibility: done ? 'hidden' : 'visible',
         }}
       >
         <Canvas

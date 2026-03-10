@@ -30,16 +30,6 @@ const socials = [
       </svg>
     ),
   },
-  {
-    label: 'Website',
-    href: 'https://bareeragulraiz.com',
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3">
-        <circle cx="8" cy="8" r="6.5" />
-        <path d="M1.5 8H14.5M8 1.5C6 4 6 12 8 14.5M8 1.5C10 4 10 12 8 14.5" />
-      </svg>
-    ),
-  },
 ]
 
 const fadeUp = {
