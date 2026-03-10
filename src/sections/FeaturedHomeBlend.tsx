@@ -101,22 +101,20 @@ export default function FeaturedHomeBlend() {
 
               <div className="mt-6 flex flex-wrap items-center gap-2.5">
                 <a
-                  href="#"
+                  href="https://github.com/bareera-g/HomeBlend"
+                  target="_blank"
+                  rel="noreferrer"
                   className="text-xs font-semibold px-4 py-2 rounded-lg bg-charcoal-solid text-beige-100 hover:bg-charcoal-solid/80 transition-colors"
-                >
-                  Live Demo
-                </a>
-                <a
-                  href="#"
-                  className="text-xs font-semibold px-4 py-2 rounded-lg border border-charcoal/[0.12] text-charcoal-solid/65 hover:border-charcoal/[0.25] hover:text-charcoal-solid transition-colors"
                 >
                   GitHub
                 </a>
                 <a
-                  href="#projects"
+                  href="https://devpost.com/software/homeblend?ref_content=my-projects-tab&ref_feature=my_projects"
+                  target="_blank"
+                  rel="noreferrer"
                   className="text-xs font-semibold px-4 py-2 rounded-lg border border-charcoal/[0.12] text-charcoal-solid/65 hover:border-charcoal/[0.25] hover:text-charcoal-solid transition-colors"
                 >
-                  Case Study
+                  Devpost
                 </a>
               </div>
             </div>

@@ -8,7 +8,7 @@ export default function Hero3D() {
   const containerRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef(0)
   const reduced = useReducedMotion()
-  const [done, setDone] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -22,7 +22,7 @@ export default function Hero3D() {
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     progressRef.current = v
-    if (v > 0.92 && !done) setDone(true)
+    setPastHero(v > 0.95)
   })
 
   const skip = useCallback(() => {
@@ -56,8 +56,7 @@ export default function Hero3D() {
         className="fixed inset-0 z-30"
         style={{
           opacity: canvasOpacity,
-          pointerEvents: done ? 'none' : 'auto',
-          visibility: done ? 'hidden' : 'visible',
+          pointerEvents: pastHero ? 'none' : 'auto',
         }}
       >
         <Canvas
@@ -106,7 +105,7 @@ export default function Hero3D() {
       </motion.div>
 
       {/* Skip intro button */}
-      {!done && (
+      {!pastHero && (
         <button
           onClick={skip}
           className="fixed top-20 right-5 z-40 text-[11px] font-semibold px-3 py-1.5 rounded-full border border-terracotta/25 text-terracotta hover:bg-terracotta/[0.08] transition-colors backdrop-blur-sm bg-beige-100/60"
