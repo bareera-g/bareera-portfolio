@@ -30,7 +30,7 @@ function SignatureText({ onRevealComplete }: { onRevealComplete?: () => void }) 
       maxX: bb[2],
       maxY: bb[3],
     }
-    mesh.clipRect = [bb[0] - 1, bb[1] - 1, bb[0] - 1, bb[3] + 1]
+    mesh.clipRect = [bb[0] - 2, bb[1] - 2, bb[0] - 2, bb[3] + 2]
     setReady(true)
   }, [])
 
@@ -43,7 +43,7 @@ function SignatureText({ onRevealComplete }: { onRevealComplete?: () => void }) 
       progressRef.current = Math.min(progressRef.current + delta * 0.5, 1)
       const ease = easeInOutCubic(progressRef.current)
       const revealX = b.minX + (b.maxX - b.minX) * ease
-      t.clipRect = [b.minX - 1, b.minY - 1, revealX, b.maxY + 1]
+      t.clipRect = [b.minX - 2, b.minY - 2, revealX, b.maxY + 2]
     } else if (!completedRef.current) {
       completedRef.current = true
       t.clipRect = null
@@ -55,12 +55,13 @@ function SignatureText({ onRevealComplete }: { onRevealComplete?: () => void }) 
     <Text
       ref={textRef}
       font="/fonts/GreatVibes-Regular.ttf"
-      fontSize={1.1}
+      fontSize={0.75}
       color="#9B9590"
       anchorX="center"
       anchorY="middle"
       onSync={handleSync}
       letterSpacing={-0.02}
+      maxWidth={6}
     >
       Bareera Gulraiz
     </Text>
@@ -151,7 +152,7 @@ export default function SignatureScene({
         <ambientLight intensity={0.6} />
         <Text
           font="/fonts/GreatVibes-Regular.ttf"
-          fontSize={1.1}
+          fontSize={0.75}
           color="#9B9590"
           anchorX="center"
           anchorY="middle"

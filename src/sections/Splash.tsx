@@ -51,9 +51,9 @@ export default function Splash({ onComplete }: SplashProps) {
       animate={{ opacity: exiting ? 0 : 1 }}
       transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
     >
-      <div className="w-full h-64 sm:h-80 md:h-96 max-w-3xl mx-auto px-6">
+      <div className="w-full h-64 sm:h-80 md:h-96 max-w-5xl mx-auto px-6">
         <Canvas
-          camera={{ position: [0, 0, 3], fov: 50 }}
+          camera={{ position: [0, 0, 4], fov: 45 }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: true }}
           style={{ background: 'transparent' }}
