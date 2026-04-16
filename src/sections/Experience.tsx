@@ -12,15 +12,14 @@ interface Role {
 
 const roles: Role[] = [
   {
-    company: 'Kayak, Takeda & Marriott',
+    company: 'Travel and Meetings Society',
     title: 'Backend Engineer (Contract)',
     location: 'Irvine, California',
     dates: 'January 2026 – Present',
     bullets: [
-      'Building an AI RFP workflow unifying vendor discovery, evaluation, and pricing — reducing sourcing cycles from 6–10 weeks to <1 week.',
-      'Developing supplier scoring and pricing analytics, shrinking vendor sets by 70%+ and preventing 2–5% overpricing.',
-      'Implementing a stateful multi-agent architecture with persistent decision traces, improving auditability and negotiation leverage and driving 1–3% incremental contract savings; presenting product at the Annual TAMS IGNITE Conference hosted by Harvard.',
-      'Synthesizing stakeholder feedback and operational constraints into product recommendations, aligning engineering solutions with business priorities and user needs.',
+      'Building a backend AI agent to streamline enterprise vendor discovery, evaluation, and pricing workflows, reducing sourcing timelines from 6–10 weeks to under 1 week across complex RFP processes.',
+      'Implementing a stateful multi-agent architecture with persistent, auditable decision traces to improve transparency, stakeholder trust, and downstream negotiation leverage.',
+      'Partnering with cross-functional stakeholders to translate procurement and finance requirements into scalable backend systems that support measurable cost savings and faster decision-making.',
     ],
   },
   {
