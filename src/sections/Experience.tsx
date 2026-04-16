@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
 
 /* ─── data ─── */
 
@@ -110,13 +109,6 @@ const fadeUp = {
 /* ─── component ─── */
 
 export default function Experience() {
-  // #region agent log
-  useEffect(() => {
-    const first = roles[0]
-    fetch('http://127.0.0.1:7294/ingest/4dc67ff3-cbfa-4e0d-9143-2dccf87f9d9f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1e9389'},body:JSON.stringify({sessionId:'1e9389',location:'Experience.tsx:mount',message:'First role at runtime',data:{company:first?.company,bullet0Prefix:first?.bullets?.[0]?.slice(0,80),bulletCount:first?.bullets?.length},timestamp:Date.now(),hypothesisId:'H1-runtime-data'})}).catch(()=>{});
-  }, [])
-  // #endregion
-
   return (
     <section id="experience" className="py-20 sm:py-28 px-5 sm:px-6">
       <div className="max-w-4xl mx-auto">
